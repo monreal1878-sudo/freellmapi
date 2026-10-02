@@ -187,6 +187,8 @@ Prefer to read before you pipe to bash? [The script is here](https://freellmapi.
 
 Open http://localhost:3001, add your provider keys on the **Keys** page, reorder the **Fallback Chain** to taste, and grab your unified API key from the **Keys** page header. That unified key is what you point your OpenAI SDK at.
 
+![From zero to first completion — install, create your account, add provider keys, point your client at it](repo-assets/setup-flow.png)
+
 On Windows, the easiest path is the desktop **[`.exe` installer from Releases](https://github.com/tashfeenahmed/freellmapi/releases/latest)** (below). On Android, see the experimental [Termux guide](docs/en/install/02-android-termux.md).
 
 Everything else — Docker Compose, local development, declarative startup config, production builds, LAN access, and backups — is in **[docs/en/install/01-install.md](docs/en/install/01-install.md)**.
@@ -349,9 +351,41 @@ Request volume, success rate, tokens in and out, average latency, and per-provid
 
 ![Analytics page](repo-assets/analytics.png)
 
+### First-run setup
+
+A fresh install opens straight to the account-setup form — one email and password protect the dashboard, and there is no external signup to go through. A browser on the machine running FreeLLMAPI can finish it without a code; from any other device, the one-time setup code printed to the server log is required.
+
+![First-run account setup](repo-assets/setup-first-run.png)
+
+Signing in from then on:
+
+![Login page](repo-assets/login.png)
+
+### Coding agents
+
+One page to wire up Claude Code, Codex CLI, Aider, Cline, Cursor and the rest: copy-paste commands generated against your live catalog, with the unified key hidden behind a **Show API key** toggle until you ask for it.
+
+![Coding agents page](repo-assets/agents.png)
+
+### Premium
+
+Activate the live catalog feed with an `fla_` key and watch the router's model list update itself — the page shows which feed you're on, when it last checked, and what changed.
+
+![Premium page](repo-assets/premium.png)
+
+### On any screen
+
+The dashboard is fully responsive — the same admin surface at phone width, ready to run from a Raspberry Pi you reach over the LAN.
+
+![Dashboard at phone width](repo-assets/mobile-web.png)
+
 ## How it works
 
 ![One request in, the best free model out — the fallback chain with live scores, cooldowns, and quota tracking](repo-assets/router-flow.png)
+
+The full system at a glance — clients in, encrypted keys and the quota ledger inside, 34 free-tier providers out, and the signed catalog feed keeping the model list fresh:
+
+![FreeLLMAPI system architecture — clients, Express proxy, router, quota ledger, provider adapters, and the signed catalog feed](repo-assets/architecture.png)
 
 One request in, the best free model out: the router picks the highest-priority model with a healthy key that's under all its rate limits, decrypts the key in memory, and calls the provider — on a 429/5xx it cools that key down and retries the next model in your chain. The component walkthrough, routing internals, and operational details live in **[docs/en/architecture/00-high-level-index.md](docs/en/architecture/00-high-level-index.md)**.
 

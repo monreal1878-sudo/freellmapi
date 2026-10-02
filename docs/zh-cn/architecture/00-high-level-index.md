@@ -40,6 +40,10 @@ FreeLLMAPI 是一个自托管的、兼容 OpenAI 的网关，把约 34 家提供
  Google         Groq        Cerebras           OpenRouter        HF       …29 more
 ```
 
+同一张图的彩色版 —— 客户端进来，内部是 Express 代理、路由器、额度账本和加密密钥库，外面是 34 家免费额度提供方，外加保持模型列表更新的签名目录源：
+
+![FreeLLMAPI 系统架构 —— 客户端、Express 代理、路由器、额度账本、提供方适配器与签名目录源](../../../repo-assets/architecture.png)
+
 - **路由器**（`server/src/services/router.ts`）—— 为每次请求挑选模型。
 - **限流账本**（`server/src/services/ratelimit.ts`）—— 由 SQLite 支撑的内存 RPM/RPD/TPM/TPD 计数器，遇到 429 时设置冷却。
 - **提供方适配器**（`server/src/providers/*.ts`）—— 每个提供方一个文件，实现 `Provider` 基类的 `chatCompletion()` 与 `streamChatCompletion()`。

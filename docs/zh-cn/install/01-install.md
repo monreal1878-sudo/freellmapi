@@ -30,6 +30,14 @@ curl -fsSL https://freellmapi.co/install.sh | bash
 
 打开 http://localhost:3001 ，在 **密钥** 页添加你的提供方密钥，按喜好调整 **回退链** 的顺序，然后在 **密钥** 页顶部拿到你的统一 API 密钥。这个统一密钥就是你的 OpenAI SDK 要指向的东西。
 
+![从零到第一次补全 —— 安装、创建账户、添加提供方密钥、把客户端指过来](../../../repo-assets/setup-flow.png)
+
+首次访问会打开账户设置表单（从其他设备访问时，先粘贴服务器日志里的一次性设置代码）。登录后，在 **密钥** 页添加你的提供方密钥：
+
+![首次设置的账户创建页](../../../repo-assets/setup-first-run.png)
+
+![添加提供方密钥](../../../repo-assets/add-key.png)
+
 你的部署会自行从签名的目录源保持更新。当前的完整目录列在 [freellmapi.co/models](https://freellmapi.co/models.html)。
 
 ## Docker Compose

@@ -175,6 +175,8 @@ curl -fsSL https://freellmapi.co/install.sh | bash
 
 打开 http://localhost:3001 ，在 **密钥** 页添加你的提供方密钥，按喜好调整 **回退链** 的顺序，然后在 **密钥** 页顶部拿到你的统一 API 密钥。这个统一密钥就是你的 OpenAI SDK 要指向的东西。
 
+![从零到第一次补全 —— 安装、创建账户、添加提供方密钥、把客户端指过来](repo-assets/setup-flow.png)
+
 在 Windows 上，最省事的方式是下面提到的桌面版 **[Releases 里的 `.exe` 安装包](https://github.com/tashfeenahmed/freellmapi/releases/latest)**。Android 上可参考实验性的 [Termux 指南](docs/zh-cn/install/02-android-termux.md)。
 
 其余内容，包括 Docker Compose、本地开发、声明式启动配置、生产构建、局域网访问和备份，都在 **[docs/zh-cn/install/01-install.md](docs/zh-cn/install/01-install.md)**。
@@ -293,11 +295,43 @@ print("Routed via:", resp.headers.get("x-routed-via"))
 
 ![分析页](repo-assets/analytics.png)
 
+### 首次设置
+
+全新安装打开后直接进入账户设置表单 —— 一个邮箱加一个密码守住整个仪表盘，不需要去任何地方注册。在运行 FreeLLMAPI 的这台机器的浏览器里可以直接完成，不用代码；从其他设备访问，则需要服务器日志里打印的一次性设置代码。
+
+![首次设置的账户创建页](repo-assets/setup-first-run.png)
+
+之后的登录页面：
+
+![登录页](repo-assets/login.png)
+
+### 编程智能体
+
+一页搞定 Claude Code、Codex CLI、Aider、Cline、Cursor 等工具的接线：命令基于你的实时目录生成，可直接复制粘贴；统一密钥藏在 **显示 API 密钥** 开关后面，点开才可见。
+
+![编程智能体页](repo-assets/agents.png)
+
+### Premium
+
+用一个 `fla_` 密钥开通实时目录源，看着路由器的模型列表自己保持更新 —— 页面会显示当前用的是哪个源、上次检查时间以及变更内容。
+
+![Premium 页](repo-assets/premium.png)
+
+### 任意尺寸的屏幕
+
+仪表盘完全响应式 —— 手机宽度下也是同一套管理界面，适合跑在局域网里访问的树莓派上。
+
+![手机宽度下的仪表盘](repo-assets/mobile-web.png)
+
 ## 工作原理
 
 ![一个请求进去，最合适的免费模型出来 —— 带实时评分、冷却和额度跟踪的回退链](repo-assets/router-flow.png)
 
 一个请求进去，最合适的免费模型出来：路由器挑出优先级最高、密钥健康且未超出任何限流的模型，在内存中解密密钥并调用提供方；遇到 429/5xx 就让那个密钥进入冷却，然后重试你链路上的下一个模型。组件走查、路由内部实现和运维细节都在 **[docs/zh-cn/architecture/00-high-level-index.md](docs/zh-cn/architecture/00-high-level-index.md)**。
+
+整个系统一览：客户端进来，加密密钥和额度账本在内部，34 家免费额度提供方出去，外加保持模型列表更新的签名目录源：
+
+![FreeLLMAPI 系统架构 —— 客户端、Express 代理、路由器、额度账本、提供方适配器与签名目录源](repo-assets/architecture.png)
 
 ## 局限性
 

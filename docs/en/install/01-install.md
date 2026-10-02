@@ -31,6 +31,14 @@ On Android, see the experimental [Termux installation guide](02-android-termux.m
 
 Open http://localhost:3001, add your provider keys on the **Keys** page, reorder the **Fallback Chain** to taste, and grab your unified API key from the **Keys** page header. That unified key is what you point your OpenAI SDK at.
 
+![From zero to first completion — install, create your account, add provider keys, point your client at it](../../../repo-assets/setup-flow.png)
+
+The first visit opens the account-setup form (from another device, paste the one-time setup code from the server log first). After signing in, add your provider keys on the **Keys** page:
+
+![First-run account setup](../../../repo-assets/setup-first-run.png)
+
+![Adding a provider key](../../../repo-assets/add-key.png)
+
 Your install keeps itself updated from the signed catalog feed. The current full catalog is listed at [freellmapi.co/models](https://freellmapi.co/models.html).
 
 ## Docker Compose

@@ -40,6 +40,10 @@ See [OVERVIEW.md](OVERVIEW.md) for deep-dives.
  Google         Groq        Cerebras           OpenRouter        HF       …29 more
 ```
 
+The same picture in color — clients in, Express proxy, router, quota ledger, and encrypted key store inside, 34 free-tier providers out, and the signed catalog feed keeping the model list fresh:
+
+![FreeLLMAPI system architecture — clients, Express proxy, router, quota ledger, provider adapters, and the signed catalog feed](../../../repo-assets/architecture.png)
+
 - **Router** (`server/src/services/router.ts`) — picks a model per request.
 - **Rate-limit ledger** (`server/src/services/ratelimit.ts`) — in-memory RPM/RPD/TPM/TPD counters backed by SQLite, with cooldowns on 429s.
 - **Provider adapters** (`server/src/providers/*.ts`) — one file per provider, implementing the `Provider` base class: `chatCompletion()` and `streamChatCompletion()`.
